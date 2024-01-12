@@ -17,5 +17,23 @@ namespace Database
         {
             InitializeComponent();
         }
+
+        private void Carica_Click(object sender, EventArgs e)
+        {
+            string connectionString = "server=localhost;uid=programma;pwd=12345;database=etichettadiscografica";
+            string query = "SELECT * FROM album";
+            MySqlConnection connect = new MySqlConnection(connectionString);
+            connect.Open();
+            MySqlCommand comm=new MySqlCommand(query,connect);
+            comm.ExecuteNonQuery();
+            MySqlDataAdapter adapter = new MySqlDataAdapter(comm);
+            DataTable data=new DataTable();
+            adapter.Fill(data);
+            dataGridView1.DataSource = data;
+            comm.ExecuteNonQuery();
+
+            connect.Close();
+
+        }
     }
 }
